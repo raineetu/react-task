@@ -3,3 +3,7 @@
 body {
   font-family: 'sans-serrif', "Poppins";
 }
+
+.lihover{
+  @apply transition-transform duration-200 hover:scale-105 ease-in-out
+}
