@@ -30,10 +30,15 @@ const Navbar = () => {
         <div className="hidden md:flex">
           <nav>
             <ul className="flex items-center justify-between space-x-8 text-[17px] cursor-pointer ">
-              <li className="lihover">Home</li>
-              <li className="lihover">About us</li>
-              <li className="lihover">Blog</li>
-              <li className="lihover">Contact</li>
+              <li className="lihover">
+                <a href="#">Home</a>
+              </li>
+              <li className="lihover">
+                <a href="/">About us</a>
+              </li>
+              <li className="lihover">
+                <a href="#blog">Blog</a>
+              </li>
             </ul>
           </nav>
         </div>

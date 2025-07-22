@@ -1,10 +1,10 @@
 export const ABOUT_SECTION = {
-  welcomeText: "Welcome",
-  heading: "Explore Stories, Share Ideas, and Inspire the World",
+  welcomeText: "Welcome to NewsPulse",
+  heading: "Your Daily Dose of Truth and Insight",
   description:
-    "Welcome to our blogging platform where creativity meets voice. Discover powerful stories, expert opinions, and exciting insights across technology, lifestyle, travel, and more. Join a community of writers and readers sharing knowledge and passion.",
-  readBlogButton: "Read Blogs",
-  emailPlaceholder: "Enter your email...",
+    "Dive into well-researched articles, breaking news, and thoughtful commentary on politics, technology, health, and more. NewsPulse brings you stories that matter, helping you stay informed and engaged.",
+  readBlogButton: "Explore Articles",
+  emailPlaceholder: "Enter your email to get news updates...",
   subscribeButton: "Subscribe",
-  altText: "Blog Illustration",
+  altText: "News articles and blog display",
 };

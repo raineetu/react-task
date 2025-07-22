@@ -1,5 +1,5 @@
 import { Send } from "lucide-react";
-import hero from "../assets/bloghero.png";
+import hero from "../assets/newsr.jpg";
 import { ABOUT_SECTION } from "../constants/constants";
 
 const About = () => {
