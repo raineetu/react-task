@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Blog = () => {
   const [data, setData] = useState([]);
@@ -31,12 +32,14 @@ const Blog = () => {
             key={index}
             className="bg-white shadow-md hover:shadow-xl rounded-xl p-4 transition duration-300"
           >
-            <img
-              src={blog.urlToImage || "https://via.placeholder.com/300"}
-              alt={blog.title}
-              className="w-full h-64 object-cover mb-4 rounded-lg"
-            />
-            <h3 className="text-lg mb-2">{blog.title}</h3>
+            <Link to={`/detail/${index}`} className="block">
+              <img
+                src={blog.urlToImage || "https://via.placeholder.com/300"}
+                alt={blog.title}
+                className="w-full h-64 object-cover mb-4 rounded-lg"
+              />
+              <h3 className="text-lg mb-2">{blog.title}</h3>
+            </Link>
 
             <a
               href={blog.url}
