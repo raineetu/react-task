@@ -5,7 +5,7 @@ import { ABOUT_SECTION } from "../constants/constants";
 const About = () => {
   return (
     <>
-      <div className="flex flex-col md:flex-row justify-around items-center px-4 md:px-15 lg:px-24 transition-all duration-500 ">
+      <div className="flex flex-col md:flex-row justify-around items-center pt-23 px-4 md:px-15 lg:px-24 transition-all duration-500 ">
         <div className="text-center md:text-left space-y-6 md:space-y-8 flex-1">
           <div className="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-start text-center md:text-left font-bold">
             <button className="bg-green-500 text-white rounded-full px-4 py-2 mb-2 md:mb-0 md:mr-4">
@@ -32,7 +32,7 @@ const About = () => {
                 placeholder={ABOUT_SECTION.emailPlaceholder}
                 className="flex-1 px-4 py-3 outline-none text-sm text-gray-700"
               />
-              <button className="bg-green-500 rounded-full text-white px-5 py-3 text-sm font-semibold hover:bg-green-600 transition duration-300">
+              <button className="bg-green-500 rounded-full text-white px-5 py-3 text-sm font-semibold hover:bg-green-600 transition duration-300 cursor-pointer">
                 {ABOUT_SECTION.subscribeButton}
               </button>
             </div>

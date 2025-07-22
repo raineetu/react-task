@@ -1,13 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MobileView from "./MobileView";
 import { Menu } from "lucide-react";
 
 const Navbar = () => {
+  const [scroll, setScroll] = useState(false);
   const [isopen, setOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScroll(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
-      <div className="flex justify-around items-center shadow-md  ">
+      <div
+        className={`flex w-full justify-around items-center shadow-md fixed  ${
+          scroll ? "ng-opacity-50 backdrop-blur-lg shadow-md" : ""
+        }`}
+      >
         {/* logo */}
         <div>
           <img src="./blog.png" alt="logo" className="w-34 h-34" />
