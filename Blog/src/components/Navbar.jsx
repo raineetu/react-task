@@ -1,5 +1,6 @@
 import { useState } from "react";
 import MobileView from "./MobileView";
+import { Menu } from "lucide-react";
 
 const Navbar = () => {
   const [isopen, setOpen] = useState(false);
@@ -13,7 +14,7 @@ const Navbar = () => {
         </div>
 
         {/* nav items */}
-        <div>
+        <div className="hidden md:flex">
           <nav>
             <ul className="flex items-center justify-between space-x-8  text-xl cursor-pointer">
               <li>Home</li>
@@ -25,13 +26,18 @@ const Navbar = () => {
         </div>
 
         {/* login */}
-        <div>
-          <button className=" rounded-full px-6 py-2 font-semibold cursor-pointer">
-            login
-          </button>
-          <button className="bg-black text-white rounded-full px-5 py-2 font-semibold cursor-pointer">
-            Sign up
-          </button>
+        <div className="flex gap-4">
+          <div>
+            <button className=" rounded-full px-6 py-2 font-semibold cursor-pointer">
+              login
+            </button>
+            <button className="bg-black text-white rounded-full px-5 py-2 font-semibold cursor-pointer">
+              Sign up
+            </button>
+          </div>
+          <div className="md:hidden mt-3" onClick={() => setOpen(!isopen)}>
+            <Menu className="cursor-pointer" />
+          </div>
         </div>
       </div>
       {isopen && <MobileView isopen={isopen} setOpen={setOpen} />}
