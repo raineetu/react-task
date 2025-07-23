@@ -32,7 +32,7 @@ const Blog = () => {
   return (
     <div
       id="blog"
-      className={`px-6 scroll-mt-37 transition-colors duration-500 ${
+      className={`px-6 pb-13 scroll-mt-37 transition-colors duration-500 ${
         theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-900"
       }`}
     >
