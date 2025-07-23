@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import MobileView from "./MobileView";
-import { Menu } from "lucide-react";
+import { Menu, Sun, Moon } from "lucide-react";
+import { useTheme } from "../context/Themecontext";
 
 const Navbar = () => {
   const [scroll, setScroll] = useState(false);
   const [isopen, setOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,9 +19,10 @@ const Navbar = () => {
   return (
     <>
       <div
-        className={`flex w-full justify-around items-center shadow-md fixed   ${
-          scroll ? "ng-opacity-50 backdrop-blur-lg shadow-md" : ""
-        }`}
+        className={`flex w-full justify-around items-center fixed shadow-md transition-colors duration-300
+    ${scroll ? "ng-opacity-50 backdrop-blur-lg shadow-md" : ""}
+    ${theme === "dark" ? "bg-black text-white" : "bg-white text-black"}
+  `}
       >
         {/* logo */}
         <div>
@@ -43,8 +46,20 @@ const Navbar = () => {
           </nav>
         </div>
 
-        {/* login */}
-        <div className="flex gap-4">
+        {/* login and theme toggle */}
+        <div className="flex gap-4 items-center">
+          {/* Theme toggle button */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 transition-all duration-200 cursor-pointer"
+          >
+            {theme === "light" ? (
+              <Moon size={20} strokeWidth={2} />
+            ) : (
+              <Sun size={20} strokeWidth={2} />
+            )}
+          </button>
+
           <div>
             <button className=" rounded-full px-6 py-2 font-semibold cursor-pointer">
               login
@@ -53,6 +68,7 @@ const Navbar = () => {
               Sign up
             </button>
           </div>
+
           <div className="md:hidden mt-3" onClick={() => setOpen(!isopen)}>
             <Menu className="cursor-pointer" />
           </div>
