@@ -21,7 +21,7 @@ const Details = () => {
   return (
     <>
       <div
-        className={`pt-36 px-8  w-full font-serif transition-colors duration-500
+        className={`pt-36 px-8 pb-10  w-full font-serif transition-colors duration-500
           ${
             theme === "dark"
               ? "bg-gray-900 text-white"

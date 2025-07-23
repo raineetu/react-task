@@ -21,7 +21,11 @@ const Navbar = () => {
       <div
         className={`flex w-full justify-around items-center fixed shadow-md transition-colors duration-300
     ${scroll ? "ng-opacity-50 backdrop-blur-lg shadow-md" : ""}
-    ${theme === "dark" ? "bg-black text-white" : "bg-white text-black"}
+    ${
+      theme === "dark"
+        ? "bg-gray-900 text-white shadow-xs shadow-gray-800"
+        : "bg-white text-black"
+    }
   `}
       >
         {/* logo */}
