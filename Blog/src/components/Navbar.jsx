@@ -17,7 +17,7 @@ const Navbar = () => {
   return (
     <>
       <div
-        className={`flex w-full justify-around items-center shadow-md fixed  ${
+        className={`flex w-full justify-around items-center shadow-md fixed   ${
           scroll ? "ng-opacity-50 backdrop-blur-lg shadow-md" : ""
         }`}
       >
