@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import MobileView from "./MobileView";
 import { Menu, Sun, Moon } from "lucide-react";
-import { useTheme } from "../context/Themecontext";
+import { useTheme } from "../context/ThemeContext";
 
 const Navbar = () => {
   const [scroll, setScroll] = useState(false);

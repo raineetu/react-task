@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { useTheme } from "../context/Themecontext";
+import { useTheme } from "../context/ThemeContext";
 
 const Details = () => {
   const location = useLocation();

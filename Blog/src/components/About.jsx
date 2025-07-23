@@ -1,7 +1,7 @@
 import { Send } from "lucide-react";
 import hero from "../assets/newsr.jpg";
 import { ABOUT_SECTION } from "../constants/constants";
-import { useTheme } from "../context/Themecontext"; // import your theme hook
+import { useTheme } from "../context/ThemeContext";
 
 const About = () => {
   const { theme } = useTheme();
