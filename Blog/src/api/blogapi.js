@@ -17,3 +17,12 @@ export const blogCategory = async () => {
     console.log("blog-category error", error);
   }
 };
+
+export const blogCategoryID = async ({ id }) => {
+  try {
+    const response = await axiosInstance.get(`/blog/${id}/`);
+    return response;
+  } catch (error) {
+    console.log("blog-category error", error);
+  }
+};
