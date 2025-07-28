@@ -1,33 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
+import useBlog from "../hooks/blogdetails/useBlog";
 
 const Blog = () => {
   const { theme } = useTheme();
-
-  const [data, setData] = useState([]);
-  const [page, setPage] = useState(1);
-  const itemsPerPage = 3;
-
-  const apiData = async () => {
-    try {
-      const response = await fetch(
-        `https://gnews.io/api/v4/search?q=tesla&lang=en&country=us&max=10&apikey=0580021909dd3cdb076a9453df0acd7f`
-      );
-      const json = await response.json();
-      setData(json.articles || []);
-    } catch (error) {
-      console.error("Failed to fetch data:", error);
-    }
-  };
-
-  useEffect(() => {
-    apiData();
-  }, []);
-
-  const totalPages = Math.ceil(data.length / itemsPerPage);
-  const startIndex = (page - 1) * itemsPerPage;
-  const paginatedData = data.slice(startIndex, startIndex + itemsPerPage);
+  const { data } = useBlog();
+  const blogData = data?.data?.data || [];
+  console.log(blogData);
 
   return (
     <div
@@ -40,77 +20,54 @@ const Blog = () => {
         <h2 className="text-4xl font-bold text-center mb-10">📰 News Blog</h2>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {paginatedData.length === 0 && (
-            <p className="text-center">No articles found.</p>
-          )}
-          {paginatedData.map((blog, index) => (
+          {blogData.map((blog) => (
             <div
-              key={index}
-              className={`rounded-xl p-4 transition duration-300 shadow-md hover:shadow-xl ${
-                theme === "dark" ? "bg-gray-800" : "bg-white"
+              key={blog.id}
+              className={`border rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105 ${
+                theme === "dark" ? "border-gray-700" : "border-gray-200"
               }`}
             >
-              <Link to={`/detail/${index}`} className="block" state={{ blog }}>
-                <img
-                  src={blog.image || "https://via.placeholder.com/300"}
-                  alt={blog.title}
-                  className="w-full h-64 object-cover mb-4 rounded-lg"
-                />
-                <h3
-                  className={`text-lg mb-2 ${
-                    theme === "dark" ? "text-white" : "text-gray-900"
-                  }`}
-                >
-                  {blog.title}
-                </h3>
-              </Link>
-              <a
-                href={blog.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`font-semibold text-md transition-colors duration-300 ${
-                  theme === "dark"
-                    ? "text-green-400 hover:text-green-300"
-                    : "text-green-600 hover:text-green-700"
-                }`}
-              >
-                Read more →
-              </a>
+              {/* Image */}
+              <img
+                src={blog.images?.[0]?.image}
+                alt="Blog"
+                className="w-full h-48 object-cover"
+              />
+              {/* Content */}
+              <div className="p-4">
+                <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
+
+                <p className="text-gray-600 dark:text-gray-300 mb-2">
+                  {blog.excerpt}
+                </p>
+
+                <div className="text-sm text-gray-500 dark:text-gray-400 mb-3">
+                  <span className="mr-2 font-medium">{blog.category}</span> |{" "}
+                  <span>
+                    {new Date(blog.date).toLocaleDateString(undefined, {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </span>
+                </div>
+
+                <p className="text-sm italic mb-4">By {blog.author}</p>
+
+                {/* Link to full article */}
+                {blog.link && (
+                  <a
+                    href={blog.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline dark:text-blue-400"
+                  >
+                    Read More →
+                  </a>
+                )}
+              </div>
             </div>
           ))}
-        </div>
-
-        {/* Pagination Controls */}
-        <div className="flex justify-center items-center gap-4 mt-10">
-          <button
-            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-            disabled={page === 1}
-            className={`text-sm px-4 py-2 rounded cursor-pointer disabled:opacity-50 transition-colors duration-300 ${
-              theme === "dark"
-                ? "bg-gray-700 text-white hover:bg-gray-600 disabled:bg-gray-600"
-                : "bg-gray-700 text-white hover:bg-gray-800 disabled:bg-gray-400"
-            }`}
-          >
-            Previous
-          </button>
-          <span
-            className={`text-lg font-medium ${
-              theme === "dark" ? "text-white" : "text-gray-900"
-            }`}
-          >
-            Page {page} of {totalPages}
-          </span>
-          <button
-            onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-            disabled={page === totalPages}
-            className={`text-sm px-4 py-2 rounded cursor-pointer disabled:opacity-50 transition-colors duration-300 ${
-              theme === "dark"
-                ? "bg-green-500 text-white hover:bg-green-400 disabled:bg-green-700"
-                : "bg-green-500 text-white hover:bg-green-600 disabled:bg-green-300"
-            }`}
-          >
-            Next
-          </button>
         </div>
       </div>
     </div>
