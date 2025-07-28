@@ -5,6 +5,15 @@ export const register = async (data) => {
     const response = await axiosInstance.post("/user/register/", data);
     return response.data;
   } catch (error) {
-    console.log("register error", error.response.data);
+    console.log("register error", error.response?.data || error.message);
+  }
+};
+
+export const login = async (data) => {
+  try {
+    const response = await axiosInstance.post("/user/login/", data);
+    return response.data;
+  } catch (error) {
+    console.log("login error", error.response?.data || error.message);
   }
 };
