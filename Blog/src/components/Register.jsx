@@ -1,69 +1,116 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import useRegister from "../hooks/userAuth/useRegister";
+import { Link, useNavigate } from "react-router-dom";
+import { authStore } from "../api/authStore";
+import { toast } from "react-toastify";
 
 const Register = ({ onClose }) => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
-  const handleLogin = () => {
-    onClose();
+  const setTokens = authStore((store) => store.setTokens);
+  const accessToken = authStore((store) => store.accessToken);
+  const { mutate } = useRegister();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate("/home");
+    }
+  }, [accessToken, navigate]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    mutate(formData, {
+      onSuccess: (data) => {
+        setTokens(data.access, data.refresh);
+        toast.success("Registration Successful");
+      },
+      onError: (error) => {
+        toast.error("Registration Invalid", error);
+      },
+    });
   };
 
   return (
     <div className="fixed inset-0 backdrop-blur-xs bg-opacity-50 flex items-center justify-center z-50 text-gray-600">
       <div className="bg-white rounded-lg w-96 p-6 shadow-lg relative">
-        <button
-          className="absolute top-2 right-3 text-xl text-gray-600 cursor-pointer"
-          onClick={onClose}
-        >
-          ×
-        </button>
-        <h2 className="text-2xl mb-4 font-semibold text-center ">Register</h2>
-        <div className="pb-6 ">
-          <label>UserName</label>
-          <input
-            type="username"
-            placeholder="Enter Username"
-            className="w-full p-2 border rounded mt-2"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div className="pb-6 ">
-          <label>Email</label>
-          <input
-            type="email"
-            placeholder="Enter Email"
-            className="w-full p-2 border rounded mt-2"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="pb-6 ">
-          <label>Password</label>
-          <input
-            type="password"
-            placeholder="Enter Password"
-            className="w-full p-2 border rounded mt-2"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
+        <h2 className="text-2xl mb-4 font-semibold text-center">Register</h2>
 
-        <div className="flex justify-end gap-3 ">
-          <button
-            className="px-4 py-2 rounded bg-red-500 hover:bg-red-600 text-white cursor-pointer"
-            onClick={onClose}
-          >
-            Cancel
-          </button>
-          <button
-            className="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700 cursor-pointer"
-            onClick={handleLogin}
-          >
-            Register
-          </button>
-        </div>
+        <form onSubmit={handleRegister}>
+          <div className="pb-6">
+            <label>Username</label>
+            <input
+              type="text"
+              name="username"
+              placeholder="Enter Username"
+              className="w-full p-2 border rounded mt-2"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="pb-6">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter Email"
+              className="w-full p-2 border rounded mt-2"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="pb-6">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter Password"
+              className="w-full p-2 border rounded mt-2"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="flex justify-end gap-3">
+            <button
+              type="button"
+              className="px-4 py-2 rounded bg-red-500 hover:bg-red-600 text-white"
+              onClick={onClose}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 rounded bg-green-600 hover:bg-green-700 text-white"
+            >
+              Register
+            </button>
+          </div>
+        </form>
+
+        <p className="text-center mt-4">
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-600 hover:underline">
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );
