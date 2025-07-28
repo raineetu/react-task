@@ -30,7 +30,7 @@ const Navbar = () => {
     <>
       <div
         className={`flex w-full justify-around items-center fixed shadow-md transition-colors duration-300
-          ${scroll ? "ng-opacity-50 backdrop-blur-lg shadow-md" : ""}
+          ${scroll ? "bg-opacity-50 backdrop-blur-lg shadow-md" : ""}
           ${
             theme === "dark"
               ? "bg-gray-900 text-white shadow-xs shadow-gray-800"
