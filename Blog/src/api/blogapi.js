@@ -1,8 +1,8 @@
 import axiosInstance from "./axiosInstance";
 
-export const blog = async () => {
+export const blog = async (page = 1) => {
   try {
-    const response = await axiosInstance.get("/blog/");
+    const response = await axiosInstance.get(`/blog/?page=${page}`);
     return response;
   } catch (error) {
     console.log("blog-category error", error);

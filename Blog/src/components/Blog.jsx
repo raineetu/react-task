@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import useBlog from "../hooks/blogdetails/useBlog";
+import { useState } from "react";
 
 const Blog = () => {
   const { theme } = useTheme();
-  const { data } = useBlog();
-  // console.log(data);
+  const [page, setPage] = useState(1);
+  const { data } = useBlog(page);
+  console.log(data);
   const blogData = data?.data?.data || [];
+  const currentPage = data?.data?.current_page || 1;
+  const totalPages = data?.data?.total_pages || 1;
 
   return (
     <div
@@ -74,6 +78,37 @@ const Blog = () => {
               )}
             </div>
           ))}
+        </div>
+
+        {/* Pagination Buttons */}
+        <div className="flex justify-center gap-4 mt-10">
+          <button
+            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className={`px-4 py-2 rounded ${
+              currentPage === 1
+                ? "bg-gray-300 cursor-not-allowed"
+                : "bg-blue-600 text-white hover:bg-blue-700"
+            }`}
+          >
+            Prev
+          </button>
+
+          <span className="px-4 py-2 rounded border">
+            Page {currentPage} of {totalPages}
+          </span>
+
+          <button
+            onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+            disabled={currentPage === totalPages}
+            className={`px-4 py-2 rounded ${
+              currentPage === totalPages
+                ? "bg-gray-300 cursor-not-allowed"
+                : "bg-blue-600 text-white hover:bg-blue-700"
+            }`}
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>
