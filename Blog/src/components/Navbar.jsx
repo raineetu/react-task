@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import MobileView from "./MobileView";
 import { Menu, Sun, Moon, LogIn } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
-import Login from "./Login";
+import Register from "./Register";
 
 const Navbar = () => {
   const [scroll, setScroll] = useState(false);
@@ -71,7 +71,7 @@ const Navbar = () => {
               onClick={() => setIsLoginOpen(true)}
               className="bg-black text-white rounded-full px-5 py-2 font-semibold cursor-pointer"
             >
-              Login
+              Signup
             </button>
           </div>
 
@@ -81,7 +81,7 @@ const Navbar = () => {
         </div>
       </div>
       {isopen && <MobileView isopen={isopen} setOpen={setOpen} />}
-      {isLoginopen && <Login onClose={() => setIsLoginOpen(false)} />}
+      {isLoginopen && <Register onClose={() => setIsLoginOpen(false)} />}
     </>
   );
 };
