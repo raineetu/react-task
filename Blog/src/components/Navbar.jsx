@@ -65,11 +65,8 @@ const Navbar = () => {
           </button>
 
           <div>
-            <button className=" rounded-full px-6 py-2 font-semibold cursor-pointer">
-              login
-            </button>
             <button className="bg-black text-white rounded-full px-5 py-2 font-semibold cursor-pointer">
-              Sign up
+              Login
             </button>
           </div>
 
