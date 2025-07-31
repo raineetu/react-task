@@ -35,10 +35,16 @@ const Register = ({ onClose }) => {
     mutate(formData, {
       onSuccess: (data) => {
         setTokens(data.access, data.refresh);
-        toast.success("Registration Successful");
+        toast.success(" Registration Successful");
       },
       onError: (error) => {
-        toast.error("Registration Invalid", error);
+        console.log(" Backend Error:", error);
+
+        const emailError = error?.email?.[0];
+        const usernameError = error?.username?.[0];
+        const generalError = error?.detail || "Registration failed";
+
+        toast.error(emailError || usernameError || generalError);
       },
     });
   };
